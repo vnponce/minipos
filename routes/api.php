@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
+  Route::get('cashier/balance', 'BalanceController@show');
+  Route::post('cashier/balance/open/day', 'BalanceController@store');
 });

@@ -16,10 +16,7 @@ class CreateCashiersTable extends Migration
         Schema::create('cashiers', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->date('date_open');
-            $table->integer('value_previous_close');
-            $table->integer('value_open')->nullable();
-            $table->text('observation')->default('');
+            $table->string('name')->default('only Cashier');
 
             $table->timestamps();
         });
