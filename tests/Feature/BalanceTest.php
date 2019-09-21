@@ -25,9 +25,7 @@ class BalanceTest extends TestCase
     public function get_cashier_balance()
     {
         $cashier = Cashier::first();
-        // dd($cashier->id);
         $date = Carbon::create(2019, 06, 11, 12, 45);
-        // dd($date->format('Y/m/d H:i'));
         create(Balance::class, [
             'date_open' => $date->timestamp,
             'value_previous_close' => 6248,
@@ -42,7 +40,7 @@ class BalanceTest extends TestCase
             'status' => 'Success',
             'results' => [
                 'date_open' => '2019/06/11',
-                'hour_open' => '12:45',
+                'hour_open' => '12:45:00',
                 'value_previous_close' => 6248,
                 'value_open' => null,
                 'observation' => ''
