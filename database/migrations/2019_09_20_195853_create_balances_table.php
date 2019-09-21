@@ -19,7 +19,7 @@ class CreateBalancesTable extends Migration
             $table->timestamp('date_open', 0);
             $table->integer('value_previous_close');
             $table->integer('value_open')->nullable();
-            $table->text('observation')->default('');
+            $table->text('observation')->default('')->nullable();
 
             $table->unsignedBigInteger('cashier_id');
             $table->foreign('cashier_id')->references('id')->on('cashiers');

@@ -15,6 +15,8 @@ class BalanceTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        create(Cashier::class);
+
         $user = new User;
         $this->actingAs($user, 'api');
     }
@@ -22,12 +24,13 @@ class BalanceTest extends TestCase
     /** @test */
     public function get_cashier_balance()
     {
-        $cashier = create(Cashier::class);
+        $cashier = Cashier::first();
         // dd($cashier->id);
-        $date = Carbon::create(2019, 06, 11, 12, 45, 0);
-        // dd($date);
+        $date = Carbon::create(2019, 06, 11, 12, 45);
+        // dd($date->format('Y/m/d H:i'));
         create(Balance::class, [
-            'date_open' => $date,
+            // 'date_open' => $date->format('Y/m/d H:i'),
+            'date_open' => '2019/06/11 12:45:00',
             'value_previous_close' => 6248,
             'value_open' => null,
             'observation' => '',
@@ -71,12 +74,11 @@ class BalanceTest extends TestCase
 	        ],
         ]);
 
-        $this->assertDatabaseHas('balance', [
-            "date_open" => "2019/06/11",
-            "hour_open" => "12:45",
+        $this->assertDatabaseHas('balances', [
+            "date_open" => "2019-06-11 12:45:00",
     	    "value_previous_close" => 6280,
 	        "value_open" => 100,
-        	"observation" => ""
+        	"observation" => null
         ]);
     }
 }

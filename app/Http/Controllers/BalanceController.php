@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Balance;
+use App\Cashier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,27 @@ class BalanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $date = $request->date_open .' '. $request->hour_open;
+        $cashier = Cashier::first();
+        $request->merge([
+            'date_open' => str_replace('-', '/', $date),
+            'cashier_id' => $cashier->id,
+        ]);
+        // dd($request->toArray());
+        // var_dump($request->date_open);
+        // dd(Carbon::rawCreateFromFormat('Y/m/d H:i', $request->date_open, NULL));
+        // dd($date, request()->all());
+        $balance = Balance::create($request->all());
+        return response()->json([
+            'msg' => 'Información guardada con éxito',
+            'results' => [
+                'date_open' => $balance->date_open->format('Y/m/d'),
+                'hour_open' => $balance->date_open->format('H:i'),
+                'value_previous_close' => $balance->value_previous_close,
+                'value_open' => $balance->value_open,
+                'observation' => $balance->observation ?? '',
+            ]
+        ]);
     }
 
     /**
