@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BalanceTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
 
     public function setUp(): void
     {
@@ -29,8 +29,7 @@ class BalanceTest extends TestCase
         $date = Carbon::create(2019, 06, 11, 12, 45);
         // dd($date->format('Y/m/d H:i'));
         create(Balance::class, [
-            // 'date_open' => $date->format('Y/m/d H:i'),
-            'date_open' => '2019/06/11 12:45:00',
+            'date_open' => $date->timestamp,
             'value_previous_close' => 6248,
             'value_open' => null,
             'observation' => '',
@@ -56,7 +55,7 @@ class BalanceTest extends TestCase
     {
         $response = $this->post("/api/v1/cashier/balance/open/day", [
             "date_open" => "2019/06/11",
-            "hour_open" => "12:45",
+            "hour_open" => "12:45:00",
             "value_previous_close" => 6280,
             "value_open" => 100,
             "observation" => ""
@@ -67,7 +66,7 @@ class BalanceTest extends TestCase
             "msg" =>"Información guardada con éxito",
             "results" => [
                 "date_open" => "2019/06/11",
-    	        "hour_open" => "12:45",
+    	        "hour_open" => "12:45:00",
        	        "value_previous_close" => 6280,
     	        "value_open" => 100,
     	        "observation" => ""

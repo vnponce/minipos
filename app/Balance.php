@@ -11,8 +11,6 @@ class Balance extends Model
         'date_open',
     ];
 
-    protected $dateFormat = 'Y/m/d H:i';
-
     protected $fillable = [
         'date_open',
         'value_previous_close',
