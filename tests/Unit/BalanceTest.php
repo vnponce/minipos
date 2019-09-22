@@ -25,10 +25,9 @@ class BalanceTest extends TestCase
     /** @test */
     function it_returns_date_open_with_format()
     {
-        $date = '2019/09/12';
-        $hour = '12:34:15';
-        $this->assertEquals('2019-09-12 12:34:15', formatBalanceOpenDate($date, $hour));
+        $requestMock = new \stdClass();
+        $requestMock->date_open = '2019/09/12';
+        $requestMock->hour_open = '12:34:15';
+        $this->assertEquals('2019-09-12 12:34:15', formatBalanceOpenDate($requestMock));
     }
-
-
 }

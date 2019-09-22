@@ -22,7 +22,7 @@ class BalanceController extends Controller
         $cashier = Cashier::first();
 
         $request->merge([
-            'date_open' => formatBalanceOpenDate($request->date_open, $request->hour_open),
+            'date_open' => formatBalanceOpenDate($request),
             'cashier_id' => $cashier->id,
         ]);
 
@@ -96,7 +96,7 @@ class BalanceController extends Controller
         $cashier = Cashier::first();
 
         $request->merge([
-            'date_open' => formatBalanceOpenDate($request->date_open, $request->hour_open),
+            'date_open' => formatBalanceOpenDate($request),
             'cashier_id' => $cashier->id,
             'value_previous_close' => $request->value_close,
             'close' => $request->value_close,
