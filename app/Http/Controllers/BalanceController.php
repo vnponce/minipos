@@ -67,7 +67,7 @@ class BalanceController extends Controller
      */
     public function show(Balance $balance)
     {
-        // this is same cashier and same balance? or balance from today?.
+        // this is same cashier always? also same balance? or balance from today?.
         $balance = Balance::latest()->first();
         return response()->json([
             'status' => 'Success',
@@ -78,6 +78,18 @@ class BalanceController extends Controller
                 'value_open' => $balance->value_open,
                 'observation' => $balance->observation,
             ]
+        ]);
+    }
+
+    public function hasOpen(Balance $balance)
+    {
+        $balance = Balance::latest()->first();
+        return response()->json([
+            'msg' => 'Success',
+            'results' => true,
+            'value' => $balance->value_open,
+            'close' => $balance->close,
+            'card' => $balance->card,
         ]);
     }
 }

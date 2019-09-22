@@ -11,12 +11,18 @@ class Balance extends Model
         'date_open',
     ];
 
+    protected $casts = [
+        'value' => 'string', // I'm guessing is equal to value_open property and response must be string here as example says from 'Obtener la información a mostrar en el cierre de caja'
+    ];
+
     protected $fillable = [
         'date_open',
         'value_previous_close',
         'value_open',
         'observation',
         'cashier_id',
+        'close',
+        'card',
     ];
 
 }

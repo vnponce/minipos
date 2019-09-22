@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
   Route::get('cashier/balance', 'BalanceController@show');
   Route::post('cashier/balance/open/day', 'BalanceController@store');
+  Route::get('has/open/cashier/balance', 'BalanceController@hasOpen');
 });

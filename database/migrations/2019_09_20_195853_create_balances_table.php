@@ -20,6 +20,8 @@ class CreateBalancesTable extends Migration
             $table->integer('value_previous_close');
             $table->integer('value_open')->nullable();
             $table->text('observation')->default('')->nullable();
+            $table->text('close')->default('0');
+            $table->text('card')->default('0');
 
             $table->unsignedBigInteger('cashier_id');
             $table->foreign('cashier_id')->references('id')->on('cashiers');

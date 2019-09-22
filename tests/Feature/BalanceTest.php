@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BalanceTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     public function setUp(): void
     {
@@ -78,4 +78,30 @@ class BalanceTest extends TestCase
         	"observation" => null
         ]);
     }
+    /** @test */
+    public function get_has_open_cashier_balance()
+    {
+        $cashier = Cashier::first();
+        $date = Carbon::create(2019, 06, 11, 12, 45);
+        create(Balance::class, [
+            'date_open' => $date->timestamp,
+            'value_previous_close' => 6248,
+            'value_open' => 5000,
+            'observation' => '',
+            'cashier_id' => $cashier->id,
+            'close' => 0,
+            'card' => 0,
+        ]);
+        $response = $this->get('/api/v1/has/open/cashier/balance');
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'msg' => 'Success',
+            'results' => true,
+            'value' => 5000,
+            'close' => '0',
+            'card' => '0',
+        ]);
+    }
+
 }
