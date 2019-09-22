@@ -35,7 +35,7 @@ class BalanceController extends Controller
                 'hour_open' => $balance->date_open->format('H:i:s'),
                 'value_previous_close' => $balance->value_previous_close,
                 'value_open' => $balance->value_open,
-                'observation' => $balance->observation ?? '',
+                'observation' => $balance->observation,
             ]
         ]);
     }
@@ -82,6 +82,35 @@ class BalanceController extends Controller
             'value' => $balance->value_open,
             'close' => $balance->close,
             'card' => $balance->card,
+        ]);
+    }
+
+    /**
+     * Store close cashier balance.
+     *
+     * @param Balance $balance
+     * @return Response
+     */
+    public function storeClose(Request $request)
+    {
+        // Get this cuz I'm not sure if this is a dynamic parameter
+        $cashier = Cashier::first();
+
+        $date = $request->date_open .' '. $request->hour_open;
+        $request->merge([
+            'date_open' => str_replace('/', '-', $date),
+            'cashier_id' => $cashier->id,
+            'value_previous_close' => $request->value_close,
+            'close' => $request->value_close,
+            'card' => $request->value_card,
+            'sales' => $request->value_sales,
+        ]);
+
+        $balance = Balance::create($request->all());
+        $balance->expenses()->createMany($request->expenses);
+        return response()->json([
+            'msg' => 'Información guardada con éxito',
+            'results' => null,
         ]);
     }
 }

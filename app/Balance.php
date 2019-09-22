@@ -25,4 +25,10 @@ class Balance extends Model
         'card',
     ];
 
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
 }
