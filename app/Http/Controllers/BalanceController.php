@@ -21,9 +21,8 @@ class BalanceController extends Controller
         // Get this cuz I'm not sure if this is a dynamic parameter
         $cashier = Cashier::first();
 
-        $date = $request->date_open .' '. $request->hour_open;
         $request->merge([
-            'date_open' => str_replace('/', '-', $date),
+            'date_open' => formatBalanceOpenDate($request->date_open, $request->hour_open),
             'cashier_id' => $cashier->id,
         ]);
 
@@ -96,9 +95,8 @@ class BalanceController extends Controller
         // Get this cuz I'm not sure if this is a dynamic parameter
         $cashier = Cashier::first();
 
-        $date = $request->date_open .' '. $request->hour_open;
         $request->merge([
-            'date_open' => str_replace('/', '-', $date),
+            'date_open' => formatBalanceOpenDate($request->date_open, $request->hour_open),
             'cashier_id' => $cashier->id,
             'value_previous_close' => $request->value_close,
             'close' => $request->value_close,

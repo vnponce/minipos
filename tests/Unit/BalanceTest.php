@@ -22,5 +22,13 @@ class BalanceTest extends TestCase
         $this->assertEquals($expense->id, $balance->expenses()->first()->id);
     }
 
+    /** @test */
+    function it_returns_date_open_with_format()
+    {
+        $date = '2019/09/12';
+        $hour = '12:34:15';
+        $this->assertEquals('2019-09-12 12:34:15', formatBalanceOpenDate($date, $hour));
+    }
+
 
 }
