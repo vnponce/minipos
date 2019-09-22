@@ -104,4 +104,26 @@ class BalanceTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function it_returns_does_not_show_data_when_value_open_is_null()
+    {
+        $cashier = Cashier::first();
+        $date = Carbon::create(2019, 06, 11, 12, 45);
+        create(Balance::class, [
+            'date_open' => $date->timestamp,
+            'value_previous_close' => 6248,
+            'value_open' => null,
+            'observation' => '',
+            'cashier_id' => $cashier->id,
+            'close' => 0,
+            'card' => 0,
+        ]);
+        $response = $this->get('/api/v1/has/open/cashier/balance');
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'msg' => 'No se puede mostrar esta información',
+        ]);
+    }
+
 }

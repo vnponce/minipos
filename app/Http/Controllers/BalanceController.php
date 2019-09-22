@@ -84,6 +84,11 @@ class BalanceController extends Controller
     public function hasOpen(Balance $balance)
     {
         $balance = Balance::latest()->first();
+        if ($balance->value_open === null) {
+            return response()->json([
+                'msg' => 'No se puede mostrar esta información',
+            ]);
+        }
         return response()->json([
             'msg' => 'Success',
             'results' => true,
