@@ -6,34 +6,15 @@ use App\Balance;
 use App\Cashier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BalanceController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -62,8 +43,8 @@ class BalanceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Balance  $balance
-     * @return \Illuminate\Http\Response
+     * @param Balance $balance
+     * @return Response
      */
     public function show(Balance $balance)
     {
@@ -81,6 +62,12 @@ class BalanceController extends Controller
         ]);
     }
 
+    /**
+     * Display open cashier balance.
+     *
+     * @param Balance $balance
+     * @return Response
+     */
     public function hasOpen(Balance $balance)
     {
         $balance = Balance::latest()->first();
